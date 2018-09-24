@@ -10,7 +10,7 @@ import android.widget.Toast;
 public class DatabaseManager extends SQLiteOpenHelper {
     SQLiteDatabase sqLiteDatabase;
     static final String DATABASE_NAME = "cartDatabase";
-    static final int DATABASE_VERSION = 1;
+    static final int DATABASE_VERSION = 3;
     static final String TABLE_NAME= "productTable";
     static final String ID = "_id";
     static final String TITLE ="title";
@@ -59,6 +59,10 @@ public class DatabaseManager extends SQLiteOpenHelper {
         sqLiteDatabase= this.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM "+TABLE_NAME,null);
         return cursor;
+    }
+    public Integer deleteCartData (String id) {
+        sqLiteDatabase = this.getWritableDatabase();
+        return sqLiteDatabase.delete(TABLE_NAME, ID+" = ?",new String[] {id});
     }
 
 }
